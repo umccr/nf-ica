@@ -1,0 +1,27 @@
+diff --git a/nextflow.config b/nextflow.config
+index 32615124..e9aa7374 100644
+--- a/nextflow.config
++++ b/nextflow.config
+@@ -87,6 +87,17 @@ params {
+ // Load base.config by default for all pipelines
+ includeConfig 'conf/base.config'
+ 
++/*
++ WRAPICA INCLUSIONS FOR ICA COMPATIBILITY
++*/
++
++// INCLUDE THE ICAv2 CONFIG FILE FOR POD ANNOTATION PRESETS
++includeConfig 'conf/icav2.config'
++
++/*
++  END WRAPICA INCLUSIONS FOR ICA COMPATIBILITY
++*/
++
+ // Load igenomes.config if required
+ includeConfig !params.igenomes_ignore ? 'conf/igenomes.config' : 'conf/igenomes_ignored.config'
+ 
+@@ -372,3 +383,4 @@ validation {
+ 
+ // Load modules.config for DSL2 module specific options
+ includeConfig 'conf/modules.config'
++

@@ -1,0 +1,13 @@
+patches:
+- name: oncoanalyser_esvee_to_higher_mem
+  path: patches/edd8c4ac7a8adf0a628b236dac789c0f.txt
+  md5sum: edd8c4ac7a8adf0a628b236dac789c0f
+  description: Esvee should use the process_high_memory label instead of process_high
+- name: oncoanalyser_add_wrapica_config_patch
+  path: patches/92ba8b9593d69d22ccfc70955a8e2d24.txt
+  md5sum: 92ba8b9593d69d22ccfc70955a8e2d24
+  description: Add wrapica injection into oncoanalyser patch
+- name: standard_icav2_wrapica_patch
+  path: patches/fe42b16d4d4551f5bec37f9c56483d5c.txt
+  md5sum: fe42b16d4d4551f5bec37f9c56483d5c
+  description: Standard icav2 nf-core label to instance mappings

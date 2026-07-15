@@ -1,0 +1,19 @@
+tenants:
+  - name: umccr-prod
+    id: 1555b441-c3be-40b0-a8f0-fb9dc7500545
+    projects:
+      - id: ea19a3f5-ec7c-4940-a474-c31cd91dbad4
+        name: development
+        oidc_auth:
+          - aws_role_arn: "#TODO"
+            secret_arn: "#TODO"
+        contexts:
+          - development
+      - id: 5844391a-69db-4b52-86b5-6a0d55c2386f
+        name: pipelines
+        oidc_auth:
+          - aws_role_arn: "#TODO"
+            secret_arn: "#TODO"
+        contexts:
+          - production
+default_nextflow_version: "25.10"

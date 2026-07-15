@@ -1,0 +1,83 @@
+name: Deploy Pipeline to ICA
+
+on:
+  push:
+    tags:
+      - "*/*__*"  # Matches: <workflow-name>/<version-tag>__<timestamp>
+
+permissions:
+  contents: write        # Create GitHub Releases, commit ica_pipelines.yaml updates
+  id-token: write        # OIDC token for AWS role assumption (ICA auth)
+  packages: read         # Pull nf-ica-cli container image from GHCR
+
+env:
+  CLI_IMAGE: ghcr.io/umccr/nf-ica-cli:latest
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout config repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history needed to read annotated tag messages
+
+      - name: Parse tag name
+        id: tag
+        run: |
+          # Tag ref: refs/tags/oncoanalyser/2.2.0__20250715143022
+          TAG_NAME="${GITHUB_REF#refs/tags/}"
+          echo "tag_name=${TAG_NAME}" >> "$GITHUB_OUTPUT"
+
+          # Extract workflow name (everything before the first /)
+          WORKFLOW_NAME="${TAG_NAME%%/*}"
+          echo "workflow_name=${WORKFLOW_NAME}" >> "$GITHUB_OUTPUT"
+
+          # Extract version tag (between / and __)
+          VERSION_WITH_TS="${TAG_NAME#*/}"
+          VERSION_TAG="${VERSION_WITH_TS%%__*}"
+          echo "version_tag=${VERSION_TAG}" >> "$GITHUB_OUTPUT"
+
+          echo "::notice::Deploying workflow=${WORKFLOW_NAME} version=${VERSION_TAG} tag=${TAG_NAME}"
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy workflow to ICA
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # These are automatically set by GitHub Actions when id-token: write is granted
+          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL }}
+        run: |
+          docker run --rm \
+            -e GITHUB_TOKEN \
+            -e ACTIONS_ID_TOKEN_REQUEST_TOKEN \
+            -e ACTIONS_ID_TOKEN_REQUEST_URL \
+            -e NF_ICA_REPO_PATH=/workspace \
+            -v "${GITHUB_WORKSPACE}:/workspace" \
+            --workdir /workspace \
+            ${{ env.CLI_IMAGE }} \
+            gh-actions-deploy-workflow \
+              --workflow-name="${{ steps.tag.outputs.workflow_name }}" \
+              --workflow-version="${{ steps.tag.outputs.version_tag }}" \
+              --annotated-tag-name="${{ steps.tag.outputs.tag_name }}"
+
+      - name: Commit updated ica_pipelines.yaml
+        if: success()
+        run: |
+          if git diff --quiet config/ica_pipelines.yaml 2>/dev/null; then
+            echo "No changes to ica_pipelines.yaml"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add config/ica_pipelines.yaml
+          git commit -m "chore: update ica_pipelines.yaml after deploying ${{ steps.tag.outputs.workflow_name }}/${{ steps.tag.outputs.version_tag }}"
+          git push origin HEAD:main

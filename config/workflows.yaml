@@ -1,0 +1,22 @@
+workflows:
+- name: oncoanalyser
+  repo_uri: https://github.com/nf-core/oncoanalyser
+  versions:
+  - tag: 2.2.0
+    git_commit_id: b94cbc7
+    contexts:
+    - development
+    - production
+  - tag: 2.3.0
+    git_commit_id: 234fd82
+    contexts:
+    - production
+    ica_nextflow_version: '25.10'
+- name: sash
+  repo_uri: https://github.com/umccr/sash
+  versions:
+    - tag: 0.6.4
+      git_commit_id: 4946aa8
+      contexts:
+       - production
+      ica_nextflow_version: '25.10'

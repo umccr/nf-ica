@@ -1,0 +1,7 @@
+contexts:
+  - name: production
+    description: |
+      The production analysis environment
+  - name: development
+    description: |
+      The development analysis environment

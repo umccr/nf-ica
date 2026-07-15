@@ -1,0 +1,12 @@
+diff --git a/modules/local/esvee/main.nf b/modules/local/esvee/main.nf
+index abb63cc9..4bd48057 100644
+--- a/modules/local/esvee/main.nf
++++ b/modules/local/esvee/main.nf
+@@ -1,6 +1,6 @@
+ process ESVEE {
+     tag "${meta.id}"
+-    label 'process_high'
++    label 'process_high_memory'
+ 
+     conda "${moduleDir}/environment.yml"
+     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
