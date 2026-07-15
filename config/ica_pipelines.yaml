@@ -1,0 +1,13 @@
+# pipelines:
+#  - workflow_name: oncoanalyser
+#    workflow_version: 2.2.0
+#    git_commit_id: abcdefg
+#    pipeline_id: uuid
+#    release_status: RELEASED
+#    tenants:
+#      - umccr-prod
+#    contexts:
+#      - production
+#    patch_files:
+#      - esvee_high_memory.patch
+#    ica_nextflow_version: 25.10
