@@ -5,15 +5,15 @@ tenants:
       - id: ea19a3f5-ec7c-4940-a474-c31cd91dbad4
         name: development
         oidc_auth:
-          - aws_role_arn: "#TODO"
-            secret_arn: "#TODO"
+          - aws_role_arn: arn:aws:iam::843407916570:role/gh-service-user-dev
+            secret_arn: arn:aws:secretsmanager:ap-southeast-2:843407916570:secret:ICAv2JWTKey-umccr-prod-service-dev-95mZMB
         contexts:
           - development
-      - id: 5844391a-69db-4b52-86b5-6a0d55c2386f
-        name: pipelines
-        oidc_auth:
-          - aws_role_arn: "#TODO"
-            secret_arn: "#TODO"
-        contexts:
-          - production
+#      - id: 5844391a-69db-4b52-86b5-6a0d55c2386f
+#        name: pipelines
+#        oidc_auth:
+#          - aws_role_arn: "#TODO"
+#            secret_arn: "#TODO"
+#        contexts:
+#          - production
 default_nextflow_version: "25.10"
