@@ -1,4 +1,13 @@
 workflows:
+# Test workflow
+- name: bamtofastq
+  repo_uri: https://github.com/nf-core/bamtofastq
+  versions:
+   - tag: 2.2.1
+     git_commit_id: 8a29586
+     contexts:
+       - development
+     ica_nextflow_version: '25.10'
 - name: oncoanalyser
   repo_uri: https://github.com/nf-core/oncoanalyser
   versions:
