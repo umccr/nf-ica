@@ -1,0 +1,13 @@
+pipelines:
+- workflow_name: bamtofastq
+  workflow_version: 2.2.1__20261026083618
+  git_commit_id: 8a29586
+  pipeline_id: d9e01c78-0f4a-4d1d-8e96-f3a6ea9c020e
+  release_status: DRAFT
+  tenants:
+  - umccr-prod
+  contexts:
+  - development
+  patch_files:
+  - standard_icav2_wrapica_patch
+  ica_nextflow_version: 25.10.2
