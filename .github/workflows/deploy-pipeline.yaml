@@ -84,6 +84,7 @@ jobs:
             -e ACTIONS_ID_TOKEN_REQUEST_TOKEN \
             -e ACTIONS_ID_TOKEN_REQUEST_URL \
             -e NF_ICA_REPO_PATH=/workspace \
+            -e AWS_REGION=ap-southeast-2 \
             -e GIT_CONFIG_COUNT=1 \
             -e GIT_CONFIG_KEY_0=safe.directory \
             -e GIT_CONFIG_VALUE_0=/workspace \
