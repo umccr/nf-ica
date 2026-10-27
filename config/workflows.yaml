@@ -7,7 +7,7 @@ workflows:
      git_commit_id: 8a29586
      contexts:
        - development
-     ica_nextflow_version: '25.10'
+     ica_nextflow_version: '25.10.2'
 - name: oncoanalyser
   repo_uri: https://github.com/nf-core/oncoanalyser
   versions:
@@ -25,7 +25,7 @@ workflows:
     git_commit_id: 7c74c87
     contexts:
       - development
-    ica_nextflow_version: '25.10'
+    ica_nextflow_version: '25.10.2'
 - name: sash
   repo_uri: https://github.com/umccr/sash
   versions:
@@ -34,4 +34,4 @@ workflows:
       contexts:
        - development
        # - production
-      ica_nextflow_version: '25.10'
+      ica_nextflow_version: '25.10.2'
