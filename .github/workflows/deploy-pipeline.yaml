@@ -51,6 +51,18 @@ jobs:
           echo "version_tag=${VERSION_TAG}" >> "$GITHUB_OUTPUT"
 
           echo "::notice::Deploying workflow=${WORKFLOW_NAME} version=${VERSION_TAG} tag=${TAG_NAME}"
+      # TEMP: decode the OIDC token claims the CLI will present to STS, so we
+      # can see the actual sub/aud and compare against the role trust policy.
+      - name: Debug OIDC token claims
+        run: |
+          TOKEN=$(curl -sS \
+            -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['value'])")
+          echo "=== decoded JWT claims (payload only) ==="
+          echo "$TOKEN" | cut -d. -f2 | tr '_-' '/+' \
+            | python3 -c "import sys,base64,json; s=sys.stdin.read().strip(); s+='='*(-len(s)%4); print(json.dumps(json.loads(base64.b64decode(s)), indent=2))" \
+            | grep -E '"(sub|aud|repository|ref|workflow_ref|iss)"'
       # Log into docker registry
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
