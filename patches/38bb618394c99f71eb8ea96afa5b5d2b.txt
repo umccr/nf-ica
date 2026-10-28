@@ -1,47 +1,47 @@
 diff --git a/conf/icav2.config b/conf/icav2.config
 new file mode 100644
-index 00000000..3edfd5f0
 --- /dev/null
 +++ b/conf/icav2.config
-@@ -0,0 +1,341 @@
+@@ -0,0 +1,335 @@
++
 +process {
 +    /*
 +        Mappings between illumina preset sizes and AWS instances are as follows
 +        Note that we do not use all available compute types here, but just use
 +        the ones most appropriate for the common nextflow pod presets
-+        
++
 +        // Standard instances
 +        standard-small   -  m5.large     -   2 CPU /   8 GB RAM -  128 GiB scratch
 +        standard-medium  -  m5.xlarge    -   4 CPU /  16 GB RAM -  256 GiB scratch
 +        standard-large   -  m5.2xlarge   -   8 CPU /  32 GB RAM -  512 GiB scratch
 +        standard-xlarge  -  m5.4xlarge   -  16 CPU /  64 GB RAM - 1024 GiB scratch
 +        standard-2xlarge -  m5.8xlarge   -  32 CPU / 128 GB RAM - 2048 GiB scratch
-+        
++
 +        // High CPU instances
 +        hicpu-small      -  c5.4xlarge   -  16 CPU /  32 GB RAM - 1024 GiB scratch
 +        hicpu-medium     -  c5.9xlarge   -  36 CPU /  72 GB RAM - 2048 GiB scratch
 +        hicpu-large      -  c5.18xlarge  -  72 CPU / 144 GB RAM - 4096 GiB scratch
-+        
++
 +        // High memory instances
 +        himem-small      -  r5.2xlarge   -   8 CPU /  64 GB RAM -  512 GiB scratch + 1 x 300 NVMe SSD
 +        himem-medium     -  r5.4xlarge   -  16 CPU / 128 GB RAM - 1024 GiB scratch + 2 x 300 NVMe SSD
 +        himem-large      -  r5.12xlarge  -  48 CPU / 384 GB RAM - 2048 GiB scratch + 2 x 900 NVMe SSD
 +        himem-xlarge     -  r5.24xlarge  -  96 CPU / 768 GB RAM - 4096 GiB scratch + 4 x 900 NVMe SSD
-+        
++
 +        // High IO instances
 +        hiio-small       -  i3.large     -   2 CPU /  16 GB RAM -  512 GiB scratch + 1 x 475 NVMe SSD
 +        hiio-medium      -  i3.xlarge    -   4 CPU /  30 GB RAM - 1024 GiB scratch + 1 x 950 NVMe SSD
-+        
++
 +        // GPU instances
 +        gpu-small        -  g5.2xlarge   -   8 CPU /  32 GB RAM - 1024 GiB scratch + 1 x A10G GPU
 +        gpu-medium       -  g5.8xlarge   -  32 CPU / 128 GB RAM - 2048 GiB scratch + 1 x A10G GPU
-+        
++
 +        // FPGA instances
 +        fpga2-medium     -  f2.6xlarge   -  24 CPU / 256 GB RAM - 2048 GiB scratch + 1 x FPGA
 +        fpga2-large      -  f2.12xlarge  -  48 CPU / 512 GB RAM - 4096 GiB scratch + 2 x FPGA
 +
 +        We also first try to run processes on the economy lifecycle, which uses spot instances,
-+        and then retry on the standard lifecycle if the failure was due to spot instance interruption (exit code 143).
++        and then retry on the standard lifecycle if the failure was due to spot instance interruption (exit codes 55 and 143).
 +        This allows us to take advantage of cheaper spot instances for processes that can be interrupted,
 +        while still ensuring that all processes will eventually run to completion on standard instances
 +        if they fail due to spot interruptions.
@@ -51,7 +51,7 @@ index 00000000..3edfd5f0
 +    cpus   = { 2      * task.attempt }
 +    memory = { 8.GB   * task.attempt }
 +    time   = { 4.h    * task.attempt }
-+    
++
 +    // ICA configuration defaults
 +    /* 
 +      See docs here https://help.ica.illumina.com/project/p-flow/f-pipelines/pi-nextflow
@@ -68,7 +68,7 @@ index 00000000..3edfd5f0
 +    ]
 +
 +    // Process Economy - For shorter processes that we are okay if they are disrupted
-+    // Add 55 to errorStrategy retry list to include the error code for spot instance interruption
++    // Spot instance interruptions may exit with code 143 (included in range 130..145) or 55
 +    // We retry in economy once, and then move to standard for the retry attempt
 +    maxRetries    = 1
 +    errorStrategy = {
@@ -156,7 +156,7 @@ index 00000000..3edfd5f0
 +            ]
 +        }
 +    }
-+    
++
 +    // Process Medium CPU - Start with hicpu-small, then hicpu-medium
 +    withLabel:process_medium_cpu {
 +        cpus   = { 16   * task.attempt }
@@ -176,7 +176,7 @@ index 00000000..3edfd5f0
 +            ]
 +        }
 +    }
-+    
++
 +    // Process High CPU - Start with hicpu-medium, then hicpu-large
 +    withLabel:process_high_cpu {
 +        cpus   = { 36   * task.attempt }
@@ -236,7 +236,7 @@ index 00000000..3edfd5f0
 +            ]
 +        }
 +    }
-+    
++
 +    // Process Very High Memory intensive workflows - 
 +    // Start with himem-large, then himem-xlarge
 +    withLabel:process_very_high_memory {
@@ -257,7 +257,7 @@ index 00000000..3edfd5f0
 +            ]
 +        }
 +    }
-+    
++
 +    // Process High IO - Start with hiio-medium on a economy lifecycle, 
 +    // then hiio-medium on a standard lifecycle
 +    withLabel:process_high_io {
@@ -297,17 +297,17 @@ index 00000000..3edfd5f0
 +    withLabel:process_gpu {
 +        ext.use_gpu  = { workflow.profile.contains('gpu') }
 +        accelerator  = { workflow.profile.contains('gpu') ? 1 : null }
-+        
++
 +        cpus   = 8
 +        memory = 32.GB
-+        
++
 +        pod    = [
 +            [annotation: 'scheduler.illumina.com/presetSize', value: 'gpu-small'],
 +            [annotation: 'scheduler.illumina.com/lifecycle', value: 'standard'],
 +            [annotation: 'volumes.illumina.com/scratchSize', value: '1024GiB']
 +        ]
 +    }
-+    
++
 +    // FPGA processes required for dragen
 +    withLabel:process_fpga {
 +        cpus   = 24
@@ -319,7 +319,7 @@ index 00000000..3edfd5f0
 +            [annotation: 'volumes.illumina.com/scratchSize', value: '2048GiB']
 +        ] 
 +    }
-+    
++
 +    // Process Long
 +    // For processes that are long running but dont necessarily require more resources,
 +    // we can just increase the time limit on retry without changing the pod preset
@@ -334,14 +334,7 @@ index 00000000..3edfd5f0
 +    }
 +}
 +
-+// Required params
-+params {
-+    outdir = 'out'
-+    publish_dir_mode = 'symlink'
-+}
-+
 +// Force docker
 +docker {
 +    enabled = true
 +}
-+

@@ -1,0 +1,22 @@
+diff --git a/nextflow.config b/nextflow.config
+--- a/nextflow.config
++++ b/nextflow.config
+@@ -65,6 +65,18 @@ workflow.output.mode = params.publish_dir_mode
+ // Load base.config by default for all pipelines
+ includeConfig 'conf/base.config'
+ 
++/*
++ WRAPICA INCLUSIONS FOR ICA COMPATIBILITY
++*/
++
++// INCLUDE THE ICAv2 CONFIG FILE FOR POD ANNOTATION PRESETS
++includeConfig 'conf/icav2.config'
++
++/*
++  END WRAPICA INCLUSIONS FOR ICA COMPATIBILITY
++*/
++
++
+ profiles {
+     debug {
+         dumpHashes              = true

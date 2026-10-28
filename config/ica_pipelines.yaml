@@ -9,5 +9,5 @@ pipelines:
   contexts:
   - development
   patch_files:
-  - standard_icav2_wrapica_patch
+  - standard_icav2_config
   ica_nextflow_version: 25.10.2
