@@ -9,11 +9,11 @@ tenants:
             secret_arn: arn:aws:secretsmanager:ap-southeast-2:843407916570:secret:ICAv2JWTKey-umccr-prod-service-dev-95mZMB
         contexts:
           - development
-#      - id: 5844391a-69db-4b52-86b5-6a0d55c2386f
-#        name: pipelines
-#        oidc_auth:
-#          - aws_role_arn: "#TODO"
-#            secret_arn: "#TODO"
-#        contexts:
-#          - production
+      - id: 5844391a-69db-4b52-86b5-6a0d55c2386f
+        name: pipelines
+        oidc_auth:
+          - aws_role_arn: arn:aws:iam::472057503814:role/gh-service-icav2-pipeline-user-prod
+            secret_arn: arn:aws:secretsmanager:ap-southeast-2:472057503814:secret:ICAv2JWTKey-umccr-prod-service-pipelines-WoiHJv
+        contexts:
+          - production
 default_nextflow_version: "25.10"
