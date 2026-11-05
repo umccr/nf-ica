@@ -1,9 +1,9 @@
-diff --git a/modules/local/esvee/main.nf b/modules/local/esvee/main.nf
-index abb63cc9..4bd48057 100644
---- a/modules/local/esvee/main.nf
-+++ b/modules/local/esvee/main.nf
-@@ -1,6 +1,6 @@
- process ESVEE {
+diff --git a/modules/local/sage/somatic/main.nf b/modules/local/sage/somatic/main.nf
+--- a/modules/local/sage/somatic/main.nf
++++ b/modules/local/sage/somatic/main.nf
+@@ -2,7 +2,7 @@
+ 
+ process SAGE_SOMATIC {
      tag "${meta.id}"
 -    label 'process_high'
 +    label 'process_high_memory'

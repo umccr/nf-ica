@@ -26,6 +26,11 @@ workflows:
     contexts:
     - development
     ica_nextflow_version: '25.10.2'
+  - tag: 2.0.0
+    git_commit_id: d1218d2
+    contexts:
+    - development
+    ica_nextflow_version: 25.10.2
 - name: sash
   repo_uri: https://github.com/umccr/sash
   versions:

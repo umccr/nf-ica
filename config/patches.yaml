@@ -1,9 +1,4 @@
 patches:
-- name: oncoanalyser_esvee_to_higher_mem
-  path: patches/edd8c4ac7a8adf0a628b236dac789c0f.txt
-  md5sum: edd8c4ac7a8adf0a628b236dac789c0f
-  description: Esvee should use the process_high_memory label instead of 
-    process_high
 - name: oncoanalyser_add_wrapica_config_patch
   path: patches/92ba8b9593d69d22ccfc70955a8e2d24.txt
   md5sum: 92ba8b9593d69d22ccfc70955a8e2d24
@@ -16,3 +11,43 @@ patches:
   path: patches/d292a33249450b720d36cff90f5d34ec.txt
   md5sum: d292a33249450b720d36cff90f5d34ec
   description: bamtofastq_wrapica_injection
+- name: sash_nextflow
+  path: patches/082d93914c1ee6c648898d8c4dda2d9c.txt
+  md5sum: 082d93914c1ee6c648898d8c4dda2d9c
+  description: Sash Wrapica Nextflow Injection
+- name: oncoanalyser_bin_keepme
+  path: patches/9f362d4166f051834d756948c8a41387.txt
+  md5sum: 9f362d4166f051834d756948c8a41387
+  description: empty_keepme_txt_file
+- name: oncoanalyser_conf_icav2
+  path: patches/dbc8f41e1eb59aa4d0bb20d7d3cf6eb7.txt
+  md5sum: dbc8f41e1eb59aa4d0bb20d7d3cf6eb7
+  description: oncoanalyser_icav2_conf
+- name: oncoanalyser_modules_local_esvee_main
+  path: patches/a2d1e0e3123f396f0b7ac80257a7d15a.txt
+  md5sum: a2d1e0e3123f396f0b7ac80257a7d15a
+  description: Bump esvee to high_memory process
+- name: oncoanalyser_modules_local_isofox_run_main
+  path: patches/93ea4f711d587107633038fb56b592fe.txt
+  md5sum: 93ea4f711d587107633038fb56b592fe
+  description: Bump isofox to medium_memory process
+- name: oncoanalyser_modules_local_sage_somatic_main
+  path: patches/27306b353df3907cc0373eb0af5acdfc.txt
+  md5sum: 27306b353df3907cc0373eb0af5acdfc
+  description: Bump sage to high_memory process
+- name: oncoanalyser_wrapica_injection
+  path: patches/912c1ab9e7a043ed65eb1ec662504573.txt
+  md5sum: 912c1ab9e7a043ed65eb1ec662504573
+  description: Oncoanalyser 2.2.0 wrapica injection
+- name: oncoanalyser_2_3_0_wrapica_injection
+  path: patches/698ac0fcdc008fc5421054f20095b6bc.txt
+  md5sum: 698ac0fcdc008fc5421054f20095b6bc
+  description: Wrapica ICAv2 Config injection
+- name: oncoanalyser_modules_local_isofox_main
+  path: patches/a5bcdc006a5547e613f2b1293a1ddb3d.txt
+  md5sum: a5bcdc006a5547e613f2b1293a1ddb3d
+  description: Bump isofox to medium_memory process
+- name: oncoanalyser_2_0_0_nextflow_wrapica_injection
+  path: patches/f41fcbfe350523bccb66ac0f5be5e51b.txt
+  md5sum: f41fcbfe350523bccb66ac0f5be5e51b
+  description: Oncoanalyser 2.0.0 Wrapica Nextflow Injection

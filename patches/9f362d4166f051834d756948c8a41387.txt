@@ -1,0 +1,6 @@
+diff --git a/bin/.keepme.txt b/bin/.keepme.txt
+new file mode 100644
+--- /dev/null
++++ b/bin/.keepme.txt
+@@ -0,0 +1 @@
++# Wrapica Auto-generated empty file
