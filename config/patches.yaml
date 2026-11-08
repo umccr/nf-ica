@@ -35,11 +35,11 @@ patches:
   path: patches/27306b353df3907cc0373eb0af5acdfc.txt
   md5sum: 27306b353df3907cc0373eb0af5acdfc
   description: Bump sage to high_memory process
-- name: oncoanalyser_wrapica_injection
+- name: oncoanalyser_2_2_0_nextflow_wrapica_injection
   path: patches/912c1ab9e7a043ed65eb1ec662504573.txt
   md5sum: 912c1ab9e7a043ed65eb1ec662504573
   description: Oncoanalyser 2.2.0 wrapica injection
-- name: oncoanalyser_2_3_0_wrapica_injection
+- name: oncoanalyser_2_3_0_nextflow_wrapica_injection
   path: patches/698ac0fcdc008fc5421054f20095b6bc.txt
   md5sum: 698ac0fcdc008fc5421054f20095b6bc
   description: Wrapica ICAv2 Config injection
