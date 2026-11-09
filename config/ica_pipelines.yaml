@@ -59,7 +59,7 @@ pipelines:
   workflow_version: 0.6.4__20261109011918
   git_commit_id: 4946aa8
   pipeline_id: 08c2c5f4-41f5-4a6b-9be8-be51f95f8a98
-  release_status: DRAFT
+  release_status: RELEASED
   tenants:
   - umccr-prod
   contexts:
