@@ -68,3 +68,14 @@ pipelines:
   - standard_icav2_config
   - sash_0_6_4_nextflow_wrapica_injection
   ica_nextflow_version: 25.10.2
+- workflow_name: oncoanalyser
+  workflow_version: 3.0.0__20261109013938
+  git_commit_id: 7c74c87
+  pipeline_id: caeca5f7-1360-4ea6-a9a3-b2303cf4eeb4
+  release_status: DRAFT
+  tenants:
+  - umccr-prod
+  contexts:
+  - development
+  patch_files: []
+  ica_nextflow_version: 25.10.2
