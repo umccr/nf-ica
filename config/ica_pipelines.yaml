@@ -77,5 +77,10 @@ pipelines:
   - umccr-prod
   contexts:
   - development
-  patch_files: []
+  patch_files:
+  - oncoanalyser_3_0_0_modules_local_isofox_run_main
+  - oncoanalyser_3_0_0_nextflow_wrapica_injection
+  - standard_icav2_config
+  - oncoanalyser_modules_local_esvee_main
+  - oncoanalyser_modules_local_sage_somatic_main
   ica_nextflow_version: 25.10.2
