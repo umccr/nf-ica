@@ -51,3 +51,12 @@ patches:
   path: patches/f41fcbfe350523bccb66ac0f5be5e51b.txt
   md5sum: f41fcbfe350523bccb66ac0f5be5e51b
   description: Oncoanalyser 2.0.0 Wrapica Nextflow Injection
+- name: oncoanalyser_3_0_0_modules_local_isofox_run_main
+  path: patches/6a782c40a7de4807fb4d945c922c19e8.txt
+  md5sum: 6a782c40a7de4807fb4d945c922c19e8
+  description: Oncoanalyser 3.0.0 local isofox process_high to 
+    process_high_memory
+- name: oncoanalyser_3_0_0_nextflow_wrapica_injection
+  path: patches/ff9b058a1485e0ee11073c6dce1b75d4.txt
+  md5sum: ff9b058a1485e0ee11073c6dce1b75d4
+  description: Oncoanalyser 3.0.0 wrapica nextflow injection
