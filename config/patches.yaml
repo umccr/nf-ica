@@ -11,7 +11,7 @@ patches:
   path: patches/d292a33249450b720d36cff90f5d34ec.txt
   md5sum: d292a33249450b720d36cff90f5d34ec
   description: bamtofastq_wrapica_injection
-- name: sash_0_6_4_nextflow_wrapica_injection 
+- name: sash_0_6_4_nextflow_wrapica_injection
   path: patches/082d93914c1ee6c648898d8c4dda2d9c.txt
   md5sum: 082d93914c1ee6c648898d8c4dda2d9c
   description: Sash 0.6.4 Wrapica Nextflow Injection
